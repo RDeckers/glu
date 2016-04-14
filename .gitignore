@@ -1,0 +1,7 @@
+*.config
+*.dll
+*.o
+*.creator
+glu.creator.user
+*.includes
+glu.files
