@@ -42,8 +42,11 @@ EXAMPLES := $(patsubst $(EXAMPLE_DIR)/%.c, $(EXAMPLE_BIN_DIR)/%, $(EXAMPLE_C_FIL
 OBJ_FILES = $(patsubst $(SRC_DIR)/%.c,$(OBJ_DIR)/%.o,$(C_FILES))
 
 LIB_NAME := glu
-
-LD_FLAGS += --std=gnu99 -march=native -lGLEW -lGL -lutilities -L$(INSTALL_LIB_DIR)
+ifeq ($(OS),Windows_NT)
+	LD_FLAGS += --std=gnu99 -march=native -lglew32 -lopengl32 -lutilities -L$(INSTALL_LIB_DIR)
+else
+	LD_FLAGS += --std=gnu99 -march=native -lGLEW -lGL -lutilities -L$(INSTALL_LIB_DIR)
+endif
 C_FLAGS += --std=gnu99 -O2 -pipe -march=native -I$(PROJECT_DIR)headers -I$(INSTALL_INCLUDE_DIR)
 
 lib: $(OBJ_FILES)
